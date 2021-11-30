@@ -2,6 +2,9 @@
     <div>
         <span>Search</span>
         <input type="text" [(ngModel)]="search" (ngModelChange)="searchPokemon()">
+        <button *ngIf="pokemons.length" (click)="nextPokemons()">
+            Next
+        </button>
     </div>
     <div class="pokemons">
         <div class="itemPokemon" 
@@ -12,8 +15,5 @@
                 {{pokemon.name | titlecase}}</p>
         </div>
     </div>
-    <div class="not_found" *ngIf="!pokemons.length">
-        <h2>No pokemons to display</h2>
-        <img src="">
-    </div>
+    <!-- <not-found></not-found> -->    
 </div>

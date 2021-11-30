@@ -2,16 +2,21 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { PokemonListComponent } from './pokemon-list.component';
+import { NotFoundComponent} from './commons/not-found.component';
+import { PokemonDetailComponent } from './profile/pokemon-detail.component';
 
 @NgModule({
   declarations: [
-    PokemonListComponent
+    PokemonListComponent,
+    NotFoundComponent,
+    PokemonDetailComponent
   ],
   imports: [    
     PokemonModule
   ],
   exports: [
-      PokemonListComponent
+      PokemonListComponent,
+      PokemonDetailComponent
   ],
   providers: [],
   bootstrap: []

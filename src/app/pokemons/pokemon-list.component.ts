@@ -14,14 +14,29 @@ export class PokemonListComponent implements OnInit{
     pokemons: Pokemon[] = [];
     private pokemonList: Pokemon [] = [];
     search: string = '';
+    offset: number = 0;
+    limit: number = 25;
     constructor(private pokemonService: PokemonService) {
     }
 
     ngOnInit(): void {
-        this.pokemonList = this.pokemonService.getPokemonList();
+        //this.pokemonList = this.pokemonService.getPokemonList();
+        this.getPokemons();
         this.pokemons = this.pokemonList;
     }    
     
+    // getPokemons(): void {
+    //     this.pokemonService.getPokemonList(this.offset, this.limit)
+    //     .then(data => this.pokemons = data)
+    // }
+    // async getPokemons(): Promise<void> {
+    //     this.pokemons = await this.pokemonService.getPokemonList(this.offset, this.limit)
+    // }
+    getPokemons() {
+        this.pokemonService.getPokemonList(this.offset, this.limit)
+            .subscribe((data: { results: Pokemon[]; }) => this.pokemons = data.results);
+    }
+
     getPokemonIdfromUrl(url: string) {
         // will divide the string "https://pokeapi.co/api/v2/pokemon/19/" into
         // 0: "https:"
@@ -63,4 +78,8 @@ export class PokemonListComponent implements OnInit{
         this.pokemons = this.pokemonList.filter(item => !item.name.indexOf(this.search));
     }
 
+    nextPokemons(): void {
+        this.offset += this.limit;
+        this.getPokemons();
+    }
 }

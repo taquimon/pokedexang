@@ -3,6 +3,8 @@ import { getPokemonImageUri } from "./mockdata";
 import { pokemonColorMap } from "./pokemonColorHash";
 import { Pokemon } from "../utils/types";
 import { PokemonService } from "./pokemon.service"
+import { ActivatedRoute, Router } from "@angular/router";
+import { Route } from "@angular/compiler/src/core";
 
 @Component({
     selector: 'pokemon-list',
@@ -16,7 +18,8 @@ export class PokemonListComponent implements OnInit{
     search: string = '';
     offset: number = 0;
     limit: number = 25;
-    constructor(private pokemonService: PokemonService) {
+    
+    constructor(private pokemonService: PokemonService, private router: Router) {    
     }
 
     ngOnInit(): void {
@@ -24,19 +27,12 @@ export class PokemonListComponent implements OnInit{
         this.getPokemons();
         this.pokemons = this.pokemonList;
     }    
-    
-    // getPokemons(): void {
-    //     this.pokemonService.getPokemonList(this.offset, this.limit)
-    //     .then(data => this.pokemons = data)
-    // }
-    // async getPokemons(): Promise<void> {
-    //     this.pokemons = await this.pokemonService.getPokemonList(this.offset, this.limit)
-    // }
+      
     getPokemons() {
         this.pokemonService.getPokemonList(this.offset, this.limit)
             .subscribe((data: { results: Pokemon[]; }) => this.pokemons = data.results);
     }
-
+    
     getPokemonIdfromUrl(url: string) {
         // will divide the string "https://pokeapi.co/api/v2/pokemon/19/" into
         // 0: "https:"
@@ -58,9 +54,16 @@ export class PokemonListComponent implements OnInit{
         return pokemonColorMap[id]
     }
 
+    goToPokemonDetails(pokemon: Pokemon) {
+         const id = this.getPokemonIdfromUrl(pokemon.url);
+         this.router.navigate([`/pokedex/${id}`]);
+        
+    }
+
     getImageUri(pokemon: Pokemon) {
-        const id = this.getPokemonIdfromUrl(pokemon.url);
-        return getPokemonImageUri(id)
+        //const id = this.getPokemonIdfromUrl(pokemon.url);
+        //return getPokemonImageUri(id)
+        return this.pokemonService.getPokemonImageUri(this.getPokemonIdfromUrl(pokemon.url));
     }
 
     getTextColor(pokemon: Pokemon) {

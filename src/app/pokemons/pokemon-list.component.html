@@ -9,7 +9,8 @@
     <div class="pokemons">
         <div class="itemPokemon" 
             [ngStyle]="{'background-color': getPokemonColor(pokemon)}"
-            *ngFor="let pokemon of pokemons">
+            *ngFor="let pokemon of pokemons"
+            (click)="goToPokemonDetails(pokemon)">
             <img [src]="getImageUri(pokemon)" [alt]="pokemon.name">
             <p [ngStyle]="{'color': getTextColor(pokemon)}"> 
                 {{pokemon.name | titlecase}}</p>

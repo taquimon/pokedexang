@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { PokemonListComponent } from './pokemon-list.component';
-import { NotFoundComponent} from './commons/not-found.component';
+import { NotFoundComponent} from '../commons/not-found.component';
 import { PokemonDetailComponent } from './profile/pokemon-detail.component';
+import { FormsModule } from '@angular/forms';
+import { PokemonRoutingModule } from './pokemon-routing.module';
 
 @NgModule({
   declarations: [
@@ -12,11 +14,14 @@ import { PokemonDetailComponent } from './profile/pokemon-detail.component';
     PokemonDetailComponent
   ],
   imports: [    
+    BrowserModule,
+    FormsModule,
     PokemonModule
   ],
   exports: [
       PokemonListComponent,
-      PokemonDetailComponent
+      PokemonDetailComponent,
+      PokemonRoutingModule
   ],
   providers: [],
   bootstrap: []

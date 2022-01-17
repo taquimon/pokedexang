@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 @Component({
     selector: 'not-found',
-    template: `<div class="not_found" *ngIf="!pokemons.length">
+    template: `<div class="not_found">
                <h2>No pokemons to display</h2>
                <img src="url">
                </div>`,

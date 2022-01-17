@@ -1,20 +1,33 @@
-<div>
+<div class="mat-drawer-container">
     <div>
         <span>Search</span>
         <input type="text" [(ngModel)]="search" (ngModelChange)="searchPokemon()">
-        <button *ngIf="pokemons.length" (click)="nextPokemons()">
+        
+    </div>       
+    <div>
+        <button 
+            *ngIf="pokemons.length"
+            (click)="nextPokemons()">
             Next
         </button>
     </div>
-    <div class="pokemons">
-        <div class="itemPokemon" 
-            [ngStyle]="{'background-color': getPokemonColor(pokemon)}"
-            *ngFor="let pokemon of pokemons"
-            (click)="goToPokemonDetails(pokemon)">
-            <img [src]="getImageUri(pokemon)" [alt]="pokemon.name">
-            <p [ngStyle]="{'color': getTextColor(pokemon)}"> 
-                {{pokemon.name | titlecase}}</p>
-        </div>
+    
+    <div>
+        <!-- <pokemon-generation
+            [games]="generations"
+            (refreshPokemons)="displayByGeneration($event)"
+        >
+    </pokemon-generation> -->
+    <button (click)="addPokemon()"> Add Pokemon</button>
     </div>
-    <!-- <not-found></not-found> -->    
+
+    <div class="pokemons">        
+        <pokemon-card
+            *ngFor="let pokemon of pokemons"
+            [pokemon]="pokemon">
+        </pokemon-card>
+    </div>
+    
+    <!-- <not-found *ngIf="!pokemons.length"></not-found> -->
+
 </div>

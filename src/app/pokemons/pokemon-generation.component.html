@@ -1,0 +1,6 @@
+<div>
+    <span for="games">Choose a generation:</span>
+    <select [(ngModel)]="selectedGame" name="games" id="games" (change)="chooseGame">
+        <option [value]="game.url" *ngFor="let game of games">{{game.name}}</option>
+    </select>
+</div>
